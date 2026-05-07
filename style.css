@@ -1,0 +1,170 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+body {
+    height: 80vh;
+
+    background-image: url(./img/background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: black;
+}
+
+/* HEADER */
+
+header {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: center;
+
+    height: 100px;
+    padding: 0 40px;
+
+    background-color: #133117;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: white;
+
+    z-index: 2;
+}
+
+/* NAV */
+
+nav {
+    position: absolute;
+
+    top: 20px;
+    right: 100px;
+
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    background-color: white;
+
+    padding: 12px 25px;
+    border-radius: 12px;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #0077ff;
+}
+
+/* HERO */
+
+.middle {
+    height: calc(100vh - 100px);
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    color: white;
+}
+
+.middle h1 {
+    font-size: 60px;
+    margin-bottom: 20px;
+}
+
+.middle p {
+    font-size: 22px;
+}
+
+/* SETA */
+
+.scroll-down {
+    position: absolute;
+
+    bottom: 30px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    font-size: 40px;
+    color: white;
+
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(10px);
+    }
+}
+
+/* RESERVA */
+
+.reserva {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    background-color: black;
+    padding: 60px;
+    gap: 40px;
+    align-items: center;
+}
+
+/* TEXTO */
+
+.reserva h2 {
+    font-size: 28px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.reserva p {
+    font-size: 18px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+/* IMAGEM (CORRIGIDA) */
+
+.cabana {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+
+    border-radius: 10px;
+
+    opacity: 0;
+    transform: translateY(40px);
+
+    animation: aparecer 1.5s ease forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes aparecer {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
