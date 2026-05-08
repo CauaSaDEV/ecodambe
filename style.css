@@ -13,6 +13,8 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-color: black;
+
+    scroll-behavior: smooth;
 }
 
 /* HEADER */
@@ -27,13 +29,13 @@ header {
     height: 100px;
     padding: 0 40px;
 
-    background-color: #133117;
 }
 
 .logo {
     font-size: 28px;
     font-weight: bold;
     color: white;
+    border-radius: 10px;
 
     z-index: 2;
 }
@@ -41,7 +43,7 @@ header {
 /* NAV */
 
 nav {
-    position: absolute;
+    position: fixed;
 
     top: 20px;
     right: 100px;
@@ -69,7 +71,6 @@ nav a:hover {
     color: #0077ff;
 }
 
-/* HERO */
 
 .middle {
     height: calc(100vh - 100px);
@@ -119,52 +120,45 @@ nav a:hover {
         transform: translateX(-50%) translateY(10px);
     }
 }
-
-/* RESERVA */
-
-.reserva {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-
-    background-color: black;
-    padding: 60px;
-    gap: 40px;
-    align-items: center;
-}
-
-/* TEXTO */
-
-.reserva h2 {
-    font-size: 28px;
-    color: white;
-    margin-bottom: 20px;
-}
-
-.reserva p {
-    font-size: 18px;
-    color: white;
-    margin-bottom: 10px;
-}
-
-/* IMAGEM (CORRIGIDA) */
-
-.cabana {
-    width: 100%;
-    max-width: 450px;
-    height: auto;
-
-    border-radius: 10px;
+.card{
+    width: 250px;
+    border-radius: 15px solid 2px;
+    transition: 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(0, 0, 0);
+    margin-left: auto;
+    padding: 20px 20px;
+    background-color: white;
 
     opacity: 0;
-    transform: translateY(40px);
 
-    animation: aparecer 1.5s ease forwards;
-    animation-delay: 0.5s;
+    transform: translateX(20px);
+    
+    
+}
+.card.visible{
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-@keyframes aparecer {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.btn-reserva{
+    padding: 10px 20px;
+    background-color: white;
+    color: black;
+    border-radius: 8px;
+    transition: 1s;
+}
+.btn-reserva:hover{
+    background-color: #0077ff;
+    color: white;
+    transform: translateY(-5px);
+
 }

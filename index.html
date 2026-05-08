@@ -6,6 +6,7 @@
     <title>Ecodambe</title>
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
+
 <body>
     <header>
         <a class="logo">
@@ -14,7 +15,7 @@
 
         <nav class = "nav">
             <a href="#">Home</a>
-            <a href="#">Reservas</a>
+            <a href="#reserva">Reservas</a>
             <a href="#">Day Use</a>
             <a href="#">Hospedagem</a>
             <a href="#">Localização</a>
@@ -24,22 +25,62 @@
         
     </header>
     <section class="middle">
-    <h1>Bem-vindo ao Ecodambe!</h1>
-    <p>Descubra a beleza natural e a tranquilidade do nosso refúgio ecológico.
+    <h1>Bem-vindo ao eco dambe!</h1>
+    <p>Descubra a beleza natural e a tranquilidade do nosso refúgio ecológico.</p>
+    <br>
+    <a class="btn-reserva">
+     reserve aqui!
+    </a>
 
     </section>
     <div class="scroll-down">
     ↓
     </div>
-    <section class="reserva">
-    <div class="reserva-texto">
-        <h2>Reserve sua cabana</h2>
-        <p>Desfrute de uma experiência única na natureza.</p>
+
+    <section class="beneficios">
+
+    <div class="card">
+        <h3>Natureza</h3>
+        <span>Contato total com a natureza.</span>
     </div>
 
-    <img class="cabana" src="./img/cabana.jpg" alt="Cabana">
-</section>
-    
-    
+    <div class="card">
+        <h3>Hospedagem</h3>
+        <span>Conforto e tranquilidade.</span>
+    </div>
+
+    <div class="card">
+        <h3>Piscina</h3>
+        <span>Área de lazer completa.</span>
+    </div>  <br><br>
+
+    </section>
+<script>
+
+const cards = document.querySelectorAll('.card');
+
+function mostrarCards(){
+
+    cards.forEach((card) => {
+
+        const topo = card.getBoundingClientRect().top;
+
+        const alturaTela = window.innerHeight;
+
+        if(topo < alturaTela - 100){
+
+            card.classList.add('visible');
+
+        }
+
+    });
+
+}
+
+window.addEventListener('scroll', mostrarCards);
+
+mostrarCards();
+
+</script>   
 </body>
 </html>
