@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+
+        <a class="logo">
+            <img src="./img/logo ecodambe.png" alt="Logo">
+        </a>
+
+        <nav class="nav">
+            <a href="reservas.html">Reservas</a>
+            <a href="day-use.html">Day Use</a>
+            <a href="hospedagem.html">Hospedagem</a>
+            <a href="localizacao.html">Localização</a>
+            <a href="sobre-nos.html">Sobre Nós</a>
+        </nav>
+
+    </header>
+
+    <div class="cabanas">
+
+        <button class="btn prev">&#10094;</button>
+
+        <div class="container-imagens">
+
+            <img src="./img/cabana 3.jpg" class="imagem ativa">
+            <img src="./img/cabana.jpg" class="imagem">
+            <img src="./img/foto cabana.jpg" class="imagem">
+
+        </div>
+
+        <button class="btn next">&#10095;</button>
+
+    </div>
+
+    <script>
+
+        const imagens = document.querySelectorAll('.imagem');
+        const btnNext = document.querySelector('.next');
+        const btnPrev = document.querySelector('.prev');
+
+        let index = 0;
+
+        function mostrarImagem(indice){
+
+            imagens.forEach((img)=>{
+                img.classList.remove('ativa');
+            });
+
+            imagens[indice].classList.add('ativa');
+        }
+
+        function proximaImagem(){
+
+            index++;
+
+            if(index >= imagens.length){
+                index = 0;
+            }
+
+            mostrarImagem(index);
+        }
+
+        function imagemAnterior(){
+
+            index--;
+
+            if(index < 0){
+                index = imagens.length - 1;
+            }
+
+            mostrarImagem(index);
+        }
+
+        btnNext.addEventListener('click', proximaImagem);
+        btnPrev.addEventListener('click', imagemAnterior);
+
+        setInterval(proximaImagem, 3000);
+
+    </script>
+
+</body>
+</html>

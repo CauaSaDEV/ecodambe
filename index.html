@@ -6,6 +6,12 @@
     <title>Ecodambe</title>
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
+<style>
+    body {
+        background-image: url(./img/background.jpg);
+        
+    }
+</style>
 
 <body>
     <header>
@@ -14,12 +20,11 @@
         </a>
 
         <nav class = "nav">
-            <a href="#">Home</a>
-            <a href="#reserva">Reservas</a>
-            <a href="#">Day Use</a>
-            <a href="#">Hospedagem</a>
-            <a href="#">Localização</a>
-            <a href="#">Sobre Nós</a>
+            <a href="reservas.html">Reservas</a>
+            <a href="day-use.html">Day Use</a>
+            <a href="hospedagem.html">Hospedagem</a>
+            <a href="localizacao.html">Localização</a>
+            <a href="sobre-nos.html">Sobre Nós</a>
         </nav>
 
         
@@ -28,59 +33,21 @@
     <h1>Bem-vindo ao eco dambe!</h1>
     <p>Descubra a beleza natural e a tranquilidade do nosso refúgio ecológico.</p>
     <br>
-    <a class="btn-reserva">
-     reserve aqui!
-    </a>
+    <button class="btn-reserva" onclick="window.location.href='reservas.html'"  >
+     Clique aqui para reservar!
+    </button>
 
     </section>
     <div class="scroll-down">
-    ↓
-    </div>
+        ↑
+    </div>  
 
-    <section class="beneficios">
-
-    <div class="card">
-        <h3>Natureza</h3>
-        <span>Contato total com a natureza.</span>
-    </div>
-
-    <div class="card">
-        <h3>Hospedagem</h3>
-        <span>Conforto e tranquilidade.</span>
-    </div>
-
-    <div class="card">
-        <h3>Piscina</h3>
-        <span>Área de lazer completa.</span>
-    </div>  <br><br>
-
-    </section>
-<script>
-
-const cards = document.querySelectorAll('.card');
-
-function mostrarCards(){
-
-    cards.forEach((card) => {
-
-        const topo = card.getBoundingClientRect().top;
-
-        const alturaTela = window.innerHeight;
-
-        if(topo < alturaTela - 100){
-
-            card.classList.add('visible');
-
-        }
-
-    });
-
-}
-
-window.addEventListener('scroll', mostrarCards);
-
-mostrarCards();
-
-</script>   
+    <footer>
+        <p>&copy; 2026 eco dambe - Todos os direitos reservados.</p>
+            
+        
+    </footer> 
+    
+       
 </body>
 </html>
