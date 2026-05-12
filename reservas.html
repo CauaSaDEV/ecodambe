@@ -3,19 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservas</title>
-
+    <title>Reservas — Eco Dambe</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .card-detalhes {
+            display: none;
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+
+            max-width: 800px;
+            margin: 0 auto 80px;
+            padding: 36px 40px;
+
+            background-color: white;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+        }
+
+        .card-detalhes.visivel {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .card-detalhes h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #111;
+        }
+
+        .card-descricao {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 24px;
+        }
+
+        .card-detalhes h3 {
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .card-itens {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .card-itens li {
+            background: #f5f5f5;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .card-itens li::before {
+            content: '✓  ';
+            color: #2d7a2d;
+            font-weight: bold;
+        }
+
+        .card-rodape {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            border-top: 1px solid #eee;
+            padding-top: 24px;
+        }
+
+        .card-preco strong {
+            font-size: 28px;
+            color: #111;
+        }
+
+        .card-preco span {
+            font-size: 14px;
+            color: #777;
+            margin-left: 4px;
+        }
+
+        .card-acoes {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-fechar-card {
+            padding: 12px 20px;
+            background: transparent;
+            color: #555;
+            border: 1.5px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-fechar-card:hover {
+            border-color: #888;
+            color: #111;
+        }
+    </style>
 </head>
 
-<body>
+<body class="reservas">
 
     <header>
-
-        <a class="logo">
-            <img src="./img/logo ecodambe.png" alt="Logo">
+        <a class="logo" href="index.html">
+            <img src="./img/logo ecodambe.png" alt="Logo Eco Dambe">
         </a>
-
         <nav class="nav">
             <a href="reservas.html">Reservas</a>
             <a href="day-use.html">Day Use</a>
@@ -23,7 +129,6 @@
             <a href="localizacao.html">Localização</a>
             <a href="sobre-nos.html">Sobre Nós</a>
         </nav>
-
     </header>
 
     <div class="cabanas">
@@ -31,61 +136,157 @@
         <button class="btn prev">&#10094;</button>
 
         <div class="container-imagens">
-
-            <img src="./img/cabana 3.jpg" class="imagem ativa">
-            <img src="./img/cabana.jpg" class="imagem">
-            <img src="./img/foto cabana.jpg" class="imagem">
-
+            <img
+                src="./img/cabana 3.jpg"
+                class="imagem ativa"
+                alt="Cabana Luxo — vista para o lago"
+                data-titulo="Cabana Luxo"
+                data-descricao="Cabana com vista para o lago, cama queen e varanda privativa."
+                data-preco="R$ 480"
+                data-comodidades="Vista para o lago, Varanda privativa, Cama Queen, Frigobar, Ar-condicionado, Wi-Fi, TV Smart"
+                data-incluso="Café da manhã, Kit de boas-vindas, Acesso às trilhas, Estacionamento"
+            >
+            <img
+                src="./img/cabana.jpg"
+                class="imagem"
+                alt="Cabana Premium — com hidromassagem"
+                data-titulo="Cabana Premium"
+                data-descricao="Cabana premium com hidromassagem e café da manhã incluso."
+                data-preco="R$ 680"
+                data-comodidades="Hidromassagem, Deck privativo, Cama King, Lareira, Frigobar, Ar-condicionado, Wi-Fi, TV Smart"
+                data-incluso="Café da manhã no chalé, Garrafa de vinho, Acesso às trilhas, Translado, Estacionamento"
+            >
         </div>
 
         <button class="btn next">&#10095;</button>
 
+        <div class="info-cabana">
+            <h2 id="titulo">Cabana Luxo</h2>
+            <p id="descricao">Cabana com vista para o lago, cama queen e varanda privativa.</p>
+
+            <button class="btn-reserva" onclick="irParaDisponibilidade()">Fazer Reserva</button>
+            <button class="btn-reserva" onclick="verMais()">Ver Mais</button>
+        </div>
+
     </div>
 
-    <script>
+    <!-- CARD — fora do .cabanas -->
+    <div class="card-detalhes" id="cardDetalhes">
+        <h2 id="cardTitulo"></h2>
+        <p class="card-descricao" id="cardDescricao"></p>
 
-        const imagens = document.querySelectorAll('.imagem');
-        const btnNext = document.querySelector('.next');
-        const btnPrev = document.querySelector('.prev');
+        <h3>Comodidades</h3>
+        <ul class="card-itens" id="cardComodidades"></ul>
+
+        <h3>Incluso na diária</h3>
+        <ul class="card-itens" id="cardIncluso"></ul>
+
+        <div class="card-rodape">
+            <div class="card-preco">
+                <strong id="cardPreco"></strong>
+                <span>/ noite · inclui café da manhã</span>
+            </div>
+            <div class="card-acoes">
+                <button class="btn-reserva" onclick="fecharCard()">✕ Fechar</button>
+                <button class="btn-reserva" onclick="irParaDisponibilidade()">Fazer Reserva</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Eco Dambe - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        const imagens   = document.querySelectorAll('.imagem');
+        const btnNext   = document.querySelector('.next');
+        const btnPrev   = document.querySelector('.prev');
+        const titulo    = document.getElementById('titulo');
+        const descricao = document.getElementById('descricao');
 
         let index = 0;
+        let autoplay = setInterval(proximaImagem, 10000);
 
-        function mostrarImagem(indice){
+        function atualizarInformacoes() {
+            const img = imagens[index];
+            titulo.textContent    = img.dataset.titulo;
+            descricao.textContent = img.dataset.descricao;
+        }
 
-            imagens.forEach((img)=>{
-                img.classList.remove('ativa');
+        function mostrarImagem(indice) {
+            imagens.forEach(img => img.classList.remove('ativa'));
+            imagens[indice].classList.add('ativa');
+            atualizarInformacoes();
+            fecharCard(); // troca de cabana fecha o card automaticamente
+        }
+
+        function proximaImagem() {
+            index = (index + 1) % imagens.length;
+            mostrarImagem(index);
+        }
+
+        function imagemAnterior() {
+            index = (index - 1 + imagens.length) % imagens.length;
+            mostrarImagem(index);
+        }
+
+        btnNext.addEventListener('click', () => { clearInterval(autoplay); proximaImagem(); });
+        btnPrev.addEventListener('click', () => { clearInterval(autoplay); imagemAnterior(); });
+
+        imagens.forEach((img, i) => {
+            img.addEventListener('click', () => {
+                clearInterval(autoplay);
+                index = i;
+                mostrarImagem(index);
+            });
+        });
+
+        // ── VER MAIS ─────────────────────────────
+
+        function verMais() {
+            const img  = imagens[index];
+            const card = document.getElementById('cardDetalhes');
+
+            document.getElementById('cardTitulo').textContent    = img.dataset.titulo;
+            document.getElementById('cardDescricao').textContent = img.dataset.descricao;
+            document.getElementById('cardPreco').textContent     = img.dataset.preco;
+
+            document.getElementById('cardComodidades').innerHTML =
+                img.dataset.comodidades.split(', ').map(c => `<li>${c}</li>`).join('');
+
+            document.getElementById('cardIncluso').innerHTML =
+                img.dataset.incluso.split(', ').map(i => `<li>${i}</li>`).join('');
+
+            card.style.display = 'block';
+            card.offsetHeight; // força reflow para a transição disparar
+            card.classList.add('visivel');
+
+            card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            clearInterval(autoplay);
+        }
+
+        // ── FECHAR CARD ───────────────────────────
+
+        function fecharCard() {
+            const card = document.getElementById('cardDetalhes');
+            if (!card.classList.contains('visivel')) return;
+
+            card.classList.remove('visivel');
+
+            card.addEventListener('transitionend', function handler() {
+                card.style.display = 'none';
+                card.removeEventListener('transitionend', handler);
             });
 
-            imagens[indice].classList.add('ativa');
+            document.querySelector('.cabanas').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        function proximaImagem(){
+        // ── FAZER RESERVA → DISPONIBILIDADE ──────
 
-            index++;
-
-            if(index >= imagens.length){
-                index = 0;
-            }
-
-            mostrarImagem(index);
+        function irParaDisponibilidade() {
+            const cabana = encodeURIComponent(imagens[index].dataset.titulo);
+            window.location.href = `disponibilidade.html?cabana=${cabana}`;
         }
-
-        function imagemAnterior(){
-
-            index--;
-
-            if(index < 0){
-                index = imagens.length - 1;
-            }
-
-            mostrarImagem(index);
-        }
-
-        btnNext.addEventListener('click', proximaImagem);
-        btnPrev.addEventListener('click', imagemAnterior);
-
-        setInterval(proximaImagem, 3000);
-
     </script>
 
 </body>

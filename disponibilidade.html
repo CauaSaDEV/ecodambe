@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disponibilidade — Eco Dambe</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+
+<body class="reservas">
+
+    <header>
+        <a class="logo" href="index.html">
+            <img src="./img/logo ecodambe.png" alt="Logo Eco Dambe">
+        </a>
+        <nav class="nav">
+            <a href="reservas.html">Reservas</a>
+            <a href="day-use.html">Day Use</a>
+            <a href="hospedagem.html">Hospedagem</a>
+            <a href="localizacao.html">Localização</a>
+            <a href="sobre-nos.html">Sobre Nós</a>
+        </nav>
+    </header>
+
+    <div class="disponibilidade-wrapper">
+
+        <h1 class="disp-titulo">Disponibilidade</h1>
+        <p class="disp-subtitulo">
+            Acomodação: <strong id="nomeCabana">Cabana Luxo</strong> —
+            Selecione a data de check-in desejada, e a data de check-out.
+        </p>
+
+        <div class="calendario">
+            <div class="cal-header">
+                <button class="cal-nav" id="btnMesAnterior">&#10094;</button>
+                <h2 id="mesAno">Maio 2026</h2>
+                <button class="cal-nav" id="btnProximoMes">&#10095;</button>
+            </div>
+
+            <div class="cal-dias-semana">
+                <span>Dom</span><span>Seg</span><span>Ter</span>
+                <span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+            </div>
+
+            <div class="cal-grid" id="calGrid"></div>
+
+            <div class="legenda">
+                <div class="legenda-item">
+                    <div class="legenda-cor" style="background:#2d7a2d;"></div>
+                    Selecionado
+                </div>
+                <div class="legenda-item">
+                    <div class="legenda-cor" style="background:#fafafa; border:1px solid #ddd;"></div>
+                    Ocupado
+                </div>
+                <div class="legenda-item">
+                    <div class="legenda-cor" style="background:white; border:1px solid #ddd;"></div>
+                    Disponível
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumo aparece ao selecionar data -->
+        <div class="resumo" id="resumo">
+            <h3>Resumo da Reserva</h3>
+            <div class="resumo-linha">
+                <span>Acomodação</span>
+                <strong id="resumoCabana">—</strong>
+            </div>
+            <div class="resumo-linha">
+                <span>Check-in</span>
+                <strong id="resumoCheckin">—</strong>
+            </div>
+            <div class="resumo-linha">
+                <span>Check-out</span>
+                <strong id="resumoCheckout">—</strong>
+            </div>
+            <div class="resumo-linha">
+                <span>Diárias</span>
+                <strong id="resumoDiarias">—</strong>
+            </div>
+            <div class="resumo-total">
+                <span>Total estimado</span>
+                <strong id="resumoTotal">—</strong>
+            </div>
+            <div class="resumo-acoes">
+                <button class="btn-confirmar" onclick="confirmarReserva()">Confirmar Reserva</button>
+                <button class="btn-limpar" onclick="limparSelecao()">Limpar seleção</button>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Eco Dambe - Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // ── CONFIGURAÇÃO ──────────────────────────
+
+        // Preços por cabana (R$/noite)
+        const precos = {
+            'Cabana Luxo':    480,
+            'Cabana Premium': 680,
+        };
+
+        // Datas indisponíveis — formato: 'YYYY-MM-DD'
+        const indisponiveis = new Set([]);
+
+        // Lê a cabana da URL
+        const params = new URLSearchParams(window.location.search);
+        const cabana = decodeURIComponent(params.get('cabana') || 'Cabana Luxo');
+        const precoPorNoite = precos[cabana] || 480;
+
+        document.getElementById('nomeCabana').textContent = cabana;
+
+        // ── ESTADO ───────────────────────────────
+
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+
+        let mesAtual = hoje.getMonth();
+        let anoAtual = hoje.getFullYear();
+        let checkin = null;
+        let checkout = null;
+
+        const meses = [
+            'Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+            'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'
+        ];
+
+        // ── RENDERIZAR CALENDÁRIO ─────────────────
+
+        function toKey(date) {
+    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+}
+
+        function renderizarCalendario() {
+            document.getElementById('mesAno').textContent = `${meses[mesAtual]} ${anoAtual}`;
+
+            const grid = document.getElementById('calGrid');
+            grid.innerHTML = '';
+
+            const primeiroDia = new Date(anoAtual, mesAtual, 1).getDay();
+            const totalDias   = new Date(anoAtual, mesAtual + 1, 0).getDate();
+
+            // Células vazias antes do dia 1
+            for (let i = 0; i < primeiroDia; i++) {
+                const vazio = document.createElement('div');
+                vazio.className = 'cal-dia vazio';
+                grid.appendChild(vazio);
+            }
+
+            // Dias do mês
+            for (let d = 1; d <= totalDias; d++) {
+                const data = new Date(anoAtual, mesAtual, d);
+                const key  = toKey(data);
+                const passado = data < hoje;
+                const ocupado = indisponiveis.has(key);
+                const ehHoje  = toKey(data) === toKey(hoje);
+                const selecionado =
+                    (checkin && toKey(checkin) === key) || (checkout && toKey(checkout) === key);
+
+const noIntervalo =
+    checkin && checkout &&
+    data > checkin && data < checkout;
+
+                const cel = document.createElement('div');
+                cel.className = 'cal-dia';
+
+                if (passado || ocupado) {
+                    cel.classList.add('indisponivel');
+                }
+                if (ehHoje) cel.classList.add('hoje');
+                if (selecionado) cel.classList.add('selecionado');
+
+                const num = document.createElement('span');
+                num.className = 'num';
+                num.textContent = d;
+                cel.appendChild(num);
+
+                if (!passado) {
+                    const valor = document.createElement('span');
+                    valor.className = 'valor';
+                    valor.textContent = ocupado ? '' : `R$${precoPorNoite}`;
+                    cel.appendChild(valor);
+                }
+
+                if (!passado && !ocupado) {
+                    cel.addEventListener('click', () => selecionarData(data));
+                }
+
+                grid.appendChild(cel);
+            }
+        }
+
+        // ── SELECIONAR DATA ───────────────────────
+
+        function selecionarData(data) {
+            if (!checkin || (checkin && checkout)) {
+                checkin = data;
+        checkout = null;
+        }
+     // segundo clique
+        else if (data > checkin) {
+        checkout = data;
+        }
+    // se clicar antes do check-in, reinicia
+        else {
+        checkin = data;
+        checkout = null;
+        }
+
+    renderizarCalendario();
+    atualizarResumo();
+}
+        
+
+        function atualizarResumo() {
+    if (!checkin) return;
+
+    const fmt = d => d.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+    });
+
+    let diarias = 1;
+    let total = precoPorNoite;
+
+    let saida = new Date(checkin);
+
+    if (checkout) {
+        diarias = Math.ceil((checkout - checkin) / (1000 * 60 * 60 * 24));
+        total = diarias * precoPorNoite;
+        saida = checkout;
+    } else {
+        saida.setDate(saida.getDate() + 1);
+    }
+
+    document.getElementById('resumoCabana').textContent = cabana;
+    document.getElementById('resumoCheckin').textContent = fmt(checkin);
+    document.getElementById('resumoCheckout').textContent = fmt(saida);
+    document.getElementById('resumoDiarias').textContent = `${diarias} dias(s)`;
+    document.getElementById('resumoTotal').textContent =
+        `R$ ${total.toLocaleString('pt-BR')}`;
+
+    document.getElementById('resumo').classList.add('visivel');
+}
+        
+
+        function confirmarReserva() {
+    if (!checkin) return;
+
+    const fmt = d => d.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+    });
+
+    const saida = checkout || new Date(checkin.getTime() + 24 * 60 * 60 * 1000);
+
+    alert(
+`Reserva solicitada!
+
+Acomodação: ${cabana}
+Check-in: ${fmt(checkin)}
+Check-out: ${fmt(saida)}
+
+Entraremos em contato para confirmar.`
+    );
+}
+
+        // ── NAVEGAÇÃO DE MESES ────────────────────
+
+        document.getElementById('btnProximoMes').addEventListener('click', () => {
+            mesAtual++;
+            if (mesAtual > 11) { mesAtual = 0; anoAtual++; }
+            renderizarCalendario();
+        });
+
+        document.getElementById('btnMesAnterior').addEventListener('click', () => {
+            const agora = new Date();
+            if (anoAtual === agora.getFullYear() && mesAtual === agora.getMonth()) return;
+            mesAtual--;
+            if (mesAtual < 0) { mesAtual = 11; anoAtual--; }
+            renderizarCalendario();
+        });
+
+        // ── INIT ──────────────────────────────────
+        renderizarCalendario();
+
+        function limparSelecao() {
+    checkin = null;
+    checkout = null;
+    renderizarCalendario();
+    document.getElementById('resumo').classList.remove('visivel');
+}
+    </script>
+
+</body>
+</html>

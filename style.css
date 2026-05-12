@@ -1,3 +1,7 @@
+/* ============================================
+   ECO DAMBE — STYLE.CSS
+   ============================================ */
+
 * {
     margin: 0;
     padding: 0;
@@ -5,97 +9,77 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-body {
-    height: 75vh;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: black;
 
+/* ── BODY ─────────────────────────────────────
+   CORREÇÃO 1 — removido background-color: black do body global.
+   Cada página define seu próprio fundo via classe no <body>.
+   Isso evita conflito entre index (imagem) e reservas (branco).
+   ──────────────────────────────────────────── */
+
+body {
     scroll-behavior: smooth;
 }
 
-/* HEADER */
+/* Fundo da página inicial — vem do HTML via style inline ou classe */
+body.page-home {
+    background-image: url('./img/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+
+/* ── ÁREA RESERVAS ────────────────────────── */
+
+body.reservas {
+    background-color: white;
+    min-height: 100vh;
+}
+
+
+/* ── MIDDLE (index) ───────────────────────── */
+
+.middle {
+    height: calc(100vh - 160px);
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+ 
+    color: rgb(0, 0, 0);
+
+    padding: 20px;
+}
+
+
+/* ── HEADER ───────────────────────────────── */
 
 header {
-    position: relative;
-
-    display: grid;
-    grid-template-columns: 200px 1fr;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
 
     height: 100px;
     padding: 0 40px;
-
 }
 
 
-.cabanas{
-    position: relative;
-    width: 800px;
-    height: 450px;
-    overflow: hidden;
-    border-radius: 10px;
-}
+/* ── LOGO ─────────────────────────────────── */
 
-.container-imagens{
-    width: 100%;
-    height: 100%;
-    position: relative;
-    align-items: center;
-    
-}
-
-.imagem{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    border-radius: 10px;
-
-    opacity: 0;
-    transition: opacity 2s ease;
-}
-
-.imagem.ativa{
-    opacity: 1;
-}
-
-.btn{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    padding: 15px;
-    cursor: pointer;
-    font-size: 20px;
-
-    z-index: 10;
-}
-
-.prev{
-    left: 10px;
-}
-
-.next{
-    right: 10px;
-}
-
-
-.logo{
-
-    z-index: 2;
-}
 .logo img {
-    width: 100%;
+    width: 120px;
     height: auto;
     border-radius: 8px;
 }
 
-/* NAV */
+
+/* ── NAV ──────────────────────────────────── */
 
 nav {
     position: fixed;
@@ -107,10 +91,12 @@ nav {
     align-items: center;
     gap: 30px;
 
-    background-color: rgb(245, 255, 247);
+    background-color: rgb(255, 255, 255);
 
     padding: 12px 25px;
     border-radius: 12px;
+
+    z-index: 1000;
 }
 
 nav a {
@@ -127,102 +113,566 @@ nav a:hover {
 }
 
 
-.middle {
-    height: calc(100vh - 100px);
+/* ── CARROSSEL ────────────────────────────── */
 
+.cabanas {
     display: flex;
-    flex-direction: column;
-
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
-    text-align: center;
+    gap: 40px;
 
-    color: white;
+    padding: 50px;
 }
 
-.middle h1 {
-    font-size: 60px;
-    margin-bottom: 20px;
+
+/* ── CONTAINER IMAGENS ────────────────────── */
+
+.container-imagens {
+    position: relative;
+
+    width: 550px;
+    height: 380px;
+
+    overflow: hidden;
+    border-radius: 12px;
 }
 
-.middle p {
-    font-size: 22px;
-}
 
-/* SETA */
+/* ── IMAGENS ──────────────────────────────── */
 
-.scroll-down {
+.imagem {
     position: absolute;
 
-    bottom: 30px;
-    left: 50%;
+    width: 100%;
+    height: 100%;
 
-    transform: translateX(-50%);
-
-    font-size: 40px;
-    color: white;
-
-    animation: bounce 1.5s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateX(-50%) translateY(0);
-    }
-
-    50% {
-        transform: translateX(-50%) translateY(10px);
-    }
-}
-.card{
-    width: 250px;
-    border-radius: 15px solid 2px;
-    transition: 0.3s ease;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    font-family: Arial, Helvetica, sans-serif;
-    color: rgb(0, 0, 0);
-    margin-left: auto;
-    padding: 20px 20px;
-    background-color: white;
+    object-fit: contain;
 
     opacity: 0;
 
-    transform: translateX(20px);
-    
-    
-}
-.card.visible{
+    transition: opacity 1.2s ease-in-out;
 
+    cursor: pointer;
+}
+
+.imagem.ativa {
     opacity: 1;
-
-    transform: translateY(0);
 }
+
+
+/* ── BOTÕES PREV / NEXT ───────────────────── */
+
+.btn {
+    background-color: white;
+    border: none;
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    font-size: 30px;
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    background-color: #0077ff;
+    color: white;
+    transform: scale(1.1);
+}
+
+
+/* ── INFORMAÇÕES DA CABANA ────────────────── */
+
+.info-cabana {
+    width: 350px;
+    animation: fadeInfo 0.8s ease;
+}
+
+.info-cabana h2 {
+    font-size: 34px;
+    margin-bottom: 15px;
+    color: rgb(0, 0, 0);
+}
+
+.info-cabana p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #000000;
+}
+
+
+/* ── BOTÃO RESERVA ────────────────────────── */
+
+
+.btn-reserva {
+    display: inline-block;
+    margin-top: 20px;
+
+    padding: 12px 24px;
+
+    background-color: black;
+    color: white;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+    text-decoration: none;
+
+    transition: 0.4s;
+}
+
+.btn-reserva:hover {
+    background-color: #0077ff;
+    transform: translateY(-5px);
+}
+
+
+/* ── CARD ─────────────────────────────────── */
+
+
+.card {
+    width: 250px;
+
+    border-radius: 15px;
+    border: 2px solid white;
+
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+    color: black;
+
+    margin-left: auto;
+    padding: 20px;
+
+    background-color: white;
+
+    transition: 0.6s ease;
+}
+
 .card:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
-footer{
-    height: 50px;
+
+
+
+/* ── FOOTER ───────────────────────────────── */
+
+footer {
+    height: 60px;
+
     background-color: black;
     color: white;
+
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.btn-reserva{
-    padding: 10px 20px;
-    background-color: white;
-    color: black;
-    border-radius: 8px;
-    transition: 1s;
-    border: none;
-}
-.btn-reserva:hover{
-    background-color: #0077ff;
-    color: white;
-    transform: translateY(-5px);
 
+/* ── ANIMAÇÃO INFO ────────────────────────── */
+
+
+@keyframes fadeInfo {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
+
+
+/* ── DETALHES DA CABANA ───────────────────── */
+
+.detalhes-cabana {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    visibility: hidden;  /* esconde sem travar a transição */
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.detalhes-cabana.visivel {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    height: auto;
+    overflow: visible;
+    margin: 80px auto;
+    padding: 40px;
+}
+
+.detalhes-cabana h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+    color: rgb(0, 0, 0);
+}
+
+.detalhes-cabana p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #000000;
+}
+
+
+/* ── BOTÃO FECHAR ─────────────────────────── */
+
+.btn-fechar {
+    background-color: transparent;
+    border: none;
+
+    font-size: 18px;
+    cursor: pointer;
+
+    float: right;
+
+    margin-bottom: 10px;
+
+    color: black;
+
+    transition: 0.3s;
+}
+
+.btn-fechar:hover {
+    color: red;
+    transform: scale(1.1);
+}
+
+
+/* ── RESPONSIVO ───────────────────────────── */
+
+@media (max-width: 900px) {
+
+    .cabanas {
+        flex-direction: column;
+    }
+
+    .container-imagens {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .info-cabana {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav {
+        right: 20px;
+        gap: 15px;
+        padding: 10px 15px;
+    }
+
+    nav a {
+        font-size: 14px;
+    }
+}
+.disponibilidade-wrapper {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 60px 24px 100px;
+        }
+
+        .disp-titulo {
+            font-size: 32px;
+            color: #111;
+            margin-bottom: 6px;
+        }
+
+        .disp-subtitulo {
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 40px;
+        }
+
+        .disp-subtitulo strong {
+            color: #2d7a2d;
+        }
+
+        /* ── CALENDÁRIO ── */
+        .calendario {
+            background: white;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .cal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 28px;
+            background: #2d7a2d;
+            color: white;
+        }
+
+        .cal-header h2 {
+            font-size: 20px;
+            font-weight: normal;
+            letter-spacing: 0.04em;
+        }
+
+        .cal-nav {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cal-nav:hover {
+            background: rgba(255,255,255,0.35);
+        }
+
+        .cal-dias-semana {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: #f0f7ee;
+        }
+
+        .cal-dias-semana span {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0;
+        }
+
+        .cal-dia {
+            position: relative;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 0.5px solid #f0f0f0;
+            transition: background 0.2s;
+            padding: 4px;
+            min-height: 64px;
+        }
+
+        .cal-dia:hover:not(.indisponivel):not(.vazio) {
+            background: #f0f7ee;
+        }
+
+        .cal-dia .num {
+            font-size: 15px;
+            font-weight: 500;
+            color: #222;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .cal-dia .valor {
+            font-size: 11px;
+            color: #2d7a2d;
+            font-weight: 600;
+        }
+
+        /* Estados */
+        .cal-dia.vazio {
+            cursor: default;
+            background: #fafafa;
+        }
+
+        .cal-dia.indisponivel {
+            background: #fafafa;
+            cursor: not-allowed;
+        }
+
+        .cal-dia.indisponivel .num {
+            color: #bbb;
+            text-decoration: line-through;
+        }
+
+        .cal-dia.indisponivel .valor {
+            color: #ddd;
+        }
+
+        .cal-dia.indisponivel::after {
+            content: 'Ocupado';
+            font-size: 9px;
+            color: #ccc;
+            letter-spacing: 0.04em;
+        }
+
+        .cal-dia.selecionado {
+            background: #2d7a2d !important;
+            border-radius: 0;
+            color: white;
+        }
+
+        .cal-dia.selecionado .num {
+            color: white;
+        }
+
+        .cal-dia.selecionado .valor {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .cal-dia.hoje .num {
+            color: #2d7a2d;
+            font-weight: bold;
+        }
+        
+
+        /* ── LEGENDA ── */
+        .legenda {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            padding: 16px 28px;
+            border-top: 1px solid #eee;
+            background: #fafafa;
+        }
+
+        .legenda-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .legenda-cor {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        /* ── RESUMO DA SELEÇÃO ── */
+        .resumo {
+            background: white;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+            padding: 28px 32px;
+            display: none;
+            animation: fadeInfo 0.4s ease both;
+        }
+
+        .resumo.visivel {
+            display: block;
+        }
+
+        .resumo h3 {
+            font-size: 20px;
+            color: #111;
+            margin-bottom: 20px;
+        }
+
+        .resumo-linha {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 15px;
+            color: #444;
+        }
+
+        .resumo-linha:last-of-type {
+            border-bottom: none;
+        }
+
+        .resumo-linha strong {
+            color: #111;
+        }
+
+        .resumo-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 2px solid #eee;
+        }
+
+        .resumo-total span {
+            font-size: 15px;
+            color: #777;
+        }
+
+        .resumo-total strong {
+            font-size: 28px;
+            color: #111;
+        }
+
+        .resumo-acoes {
+            margin-top: 24px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-confirmar {
+            padding: 14px 32px;
+            background: #2d7a2d;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-confirmar:hover {
+            background: #1f5c1f;
+            transform: translateY(-2px);
+        }
+
+        .btn-limpar {
+            padding: 14px 20px;
+            background: transparent;
+            color: #555;
+            border: 1.5px solid #ccc;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-limpar:hover {
+            border-color: #888;
+            color: #111;
+        }
+
+        @keyframes fadeInfo {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .cal-dia { min-height: 48px; }
+            .cal-dia .valor { display: none; }
+            .cal-header h2 { font-size: 16px; }
+        }
