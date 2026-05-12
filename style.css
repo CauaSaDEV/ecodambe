@@ -22,14 +22,12 @@ body.page-home {
     min-height: 100vh;
 }
 
-
 /* ── ÁREA RESERVAS ────────────────────────── */
 
 body.reservas {
     background-color: white;
     min-height: 100vh;
 }
-
 
 /* ── MIDDLE (index) ───────────────────────── */
 
@@ -44,12 +42,10 @@ body.reservas {
 
     text-align: center;
 
- 
     color: rgb(0, 0, 0);
 
     padding: 20px;
 }
-
 
 /* ── HEADER ───────────────────────────────── */
 
@@ -62,7 +58,6 @@ header {
     padding: 0 40px;
 }
 
-
 /* ── LOGO ─────────────────────────────────── */
 
 .logo img {
@@ -70,7 +65,6 @@ header {
     height: auto;
     border-radius: 8px;
 }
-
 
 /* ── NAV ──────────────────────────────────── */
 
@@ -105,7 +99,6 @@ nav a:hover {
     color: #0077ff;
 }
 
-
 /* ── CARROSSEL ────────────────────────────── */
 
 .cabanas {
@@ -118,7 +111,6 @@ nav a:hover {
     padding: 50px;
 }
 
-
 /* ── CONTAINER IMAGENS ────────────────────── */
 
 .container-imagens {
@@ -130,7 +122,6 @@ nav a:hover {
     overflow: hidden;
     border-radius: 12px;
 }
-
 
 /* ── IMAGENS ──────────────────────────────── */
 
@@ -152,7 +143,6 @@ nav a:hover {
 .imagem.ativa {
     opacity: 1;
 }
-
 
 /* ── BOTÕES PREV / NEXT ───────────────────── */
 
@@ -179,7 +169,6 @@ nav a:hover {
     transform: scale(1.1);
 }
 
-
 /* ── INFORMAÇÕES DA CABANA ────────────────── */
 
 .info-cabana {
@@ -199,9 +188,7 @@ nav a:hover {
     color: #000000;
 }
 
-
 /* ── BOTÃO RESERVA ────────────────────────── */
-
 
 .btn-reserva {
     display: inline-block;
@@ -226,9 +213,7 @@ nav a:hover {
     transform: translateY(-5px);
 }
 
-
 /* ── CARD ─────────────────────────────────── */
-
 
 .card {
     width: 250px;
@@ -254,8 +239,6 @@ nav a:hover {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
-
-
 /* ── FOOTER ───────────────────────────────── */
 
 footer {
@@ -269,9 +252,7 @@ footer {
     align-items: center;
 }
 
-
 /* ── ANIMAÇÃO INFO ────────────────────────── */
-
 
 @keyframes fadeInfo {
     from {
@@ -284,14 +265,15 @@ footer {
     }
 }
 
-
 /* ── DETALHES DA CABANA ───────────────────── */
 
 .detalhes-cabana {
     opacity: 0;
     transform: translateY(20px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    visibility: hidden;  /* esconde sem travar a transição */
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
+    visibility: hidden; /* esconde sem travar a transição */
     height: 0;
     overflow: hidden;
     margin: 0;
@@ -320,7 +302,6 @@ footer {
     color: #000000;
 }
 
-
 /* ── BOTÃO FECHAR ─────────────────────────── */
 
 .btn-fechar {
@@ -344,11 +325,9 @@ footer {
     transform: scale(1.1);
 }
 
-
 /* ── RESPONSIVO ───────────────────────────── */
 
 @media (max-width: 900px) {
-
     .cabanas {
         flex-direction: column;
     }
@@ -374,298 +353,309 @@ footer {
     }
 }
 .disponibilidade-wrapper {
-            max-width: 860px;
-            margin: 0 auto;
-            padding: 60px 24px 100px;
-        }
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+}
 
-        .disp-titulo {
-            font-size: 32px;
-            color: #111;
-            margin-bottom: 6px;
-        }
+.disp-titulo {
+    font-size: 32px;
+    color: #111;
+    margin-bottom: 6px;
+}
 
-        .disp-subtitulo {
-            font-size: 16px;
-            color: #777;
-            margin-bottom: 40px;
-        }
+.disp-subtitulo {
+    font-size: 16px;
+    color: #777;
+    margin-bottom: 40px;
+}
 
-        .disp-subtitulo strong {
-            color: #2d7a2d;
-        }
+.disp-subtitulo strong {
+    color: #2d7a2d;
+}
 
-        /* ── CALENDÁRIO ── */
-        .calendario {
-            background: white;
-            border-radius: 15px;
-            border: 2px solid #e0e0e0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            overflow: hidden;
-            margin-bottom: 40px;
-        }
+/* ── CALENDÁRIO ── */
+.calendario {
+    background: white;
+    border-radius: 15px;
+    border: 2px solid #e0e0e0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    margin-bottom: 40px;
+}
 
-        .cal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 20px 28px;
-            background: #2d7a2d;
-            color: white;
-        }
+.cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 28px;
+    background: #2d7a2d;
+    color: white;
+}
 
-        .cal-header h2 {
-            font-size: 20px;
-            font-weight: normal;
-            letter-spacing: 0.04em;
-        }
+.cal-header h2 {
+    font-size: 20px;
+    font-weight: normal;
+    letter-spacing: 0.04em;
+}
 
-        .cal-nav {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+.cal-nav {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .cal-nav:hover {
-            background: rgba(255,255,255,0.35);
-        }
+.cal-nav:hover {
+    background: rgba(255, 255, 255, 0.35);
+}
 
-        .cal-dias-semana {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            background: #f0f7ee;
-        }
+.cal-dias-semana {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: #f0f7ee;
+}
 
-        .cal-dias-semana span {
-            text-align: center;
-            padding: 10px 0;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: #555;
-        }
+.cal-dias-semana span {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #555;
+}
 
-        .cal-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 0;
-        }
+.cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0;
+}
 
-        .cal-dia {
-            position: relative;
-            aspect-ratio: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: 0.5px solid #f0f0f0;
-            transition: background 0.2s;
-            padding: 4px;
-            min-height: 64px;
-        }
+.cal-dia {
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 0.5px solid #f0f0f0;
+    transition: background 0.2s;
+    padding: 4px;
+    min-height: 64px;
+}
 
-        .cal-dia:hover:not(.indisponivel):not(.vazio) {
-            background: #f0f7ee;
-        }
+.cal-dia:hover:not(.indisponivel):not(.vazio) {
+    background: #f0f7ee;
+}
 
-        .cal-dia .num {
-            font-size: 15px;
-            font-weight: 500;
-            color: #222;
-            line-height: 1;
-            margin-bottom: 4px;
-        }
+.cal-dia .num {
+    font-size: 15px;
+    font-weight: 500;
+    color: #222;
+    line-height: 1;
+    margin-bottom: 4px;
+}
 
-        .cal-dia .valor {
-            font-size: 11px;
-            color: #2d7a2d;
-            font-weight: 600;
-        }
+.cal-dia .valor {
+    font-size: 11px;
+    color: #2d7a2d;
+    font-weight: 600;
+}
 
-        /* Estados */
-        .cal-dia.vazio {
-            cursor: default;
-            background: #fafafa;
-        }
+/* Estados */
+.cal-dia.vazio {
+    cursor: default;
+    background: #fafafa;
+}
 
-        .cal-dia.indisponivel {
-            background: #fafafa;
-            cursor: not-allowed;
-        }
+.cal-dia.indisponivel {
+    background: #fafafa;
+    cursor: not-allowed;
+}
 
-        .cal-dia.indisponivel .num {
-            color: #bbb;
-            text-decoration: line-through;
-        }
+.cal-dia.indisponivel .num {
+    color: #bbb;
+    text-decoration: line-through;
+}
 
-        .cal-dia.indisponivel .valor {
-            color: #ddd;
-        }
+.cal-dia.indisponivel .valor {
+    color: #ddd;
+}
 
-        .cal-dia.indisponivel::after {
-            content: 'Ocupado';
-            font-size: 9px;
-            color: #ccc;
-            letter-spacing: 0.04em;
-        }
+.cal-dia.indisponivel::after {
+    content: 'Ocupado';
+    font-size: 9px;
+    color: #ccc;
+    letter-spacing: 0.04em;
+}
 
-        .cal-dia.selecionado {
-            background: #2d7a2d !important;
-            border-radius: 0;
-            color: white;
-        }
+.cal-dia.selecionado {
+    background: #2d7a2d !important;
+    border-radius: 0;
+    color: white;
+}
 
-        .cal-dia.selecionado .num {
-            color: white;
-        }
+.cal-dia.selecionado .num {
+    color: white;
+}
 
-        .cal-dia.selecionado .valor {
-            color: rgba(255,255,255,0.85);
-        }
+.cal-dia.selecionado .valor {
+    color: rgba(255, 255, 255, 0.85);
+}
 
-        .cal-dia.hoje .num {
-            color: #2d7a2d;
-            font-weight: bold;
-        }
-        
+.cal-dia.hoje .num {
+    color: #2d7a2d;
+    font-weight: bold;
+}
 
-        /* ── LEGENDA ── */
-        .legenda {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            padding: 16px 28px;
-            border-top: 1px solid #eee;
-            background: #fafafa;
-        }
+/* ── LEGENDA ── */
+.legenda {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 16px 28px;
+    border-top: 1px solid #eee;
+    background: #fafafa;
+}
 
-        .legenda-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: #555;
-        }
+.legenda-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #555;
+}
 
-        .legenda-cor {
-            width: 14px;
-            height: 14px;
-            border-radius: 3px;
-        }
+.legenda-cor {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+}
 
-        /* ── RESUMO DA SELEÇÃO ── */
-        .resumo {
-            background: white;
-            border-radius: 15px;
-            border: 2px solid #e0e0e0;
-            padding: 28px 32px;
-            display: none;
-            animation: fadeInfo 0.4s ease both;
-        }
+/* ── RESUMO DA SELEÇÃO ── */
+.resumo {
+    background: white;
+    border-radius: 15px;
+    border: 2px solid #e0e0e0;
+    padding: 28px 32px;
+    display: none;
+    animation: fadeInfo 0.4s ease both;
+}
 
-        .resumo.visivel {
-            display: block;
-        }
+.resumo.visivel {
+    display: block;
+}
 
-        .resumo h3 {
-            font-size: 20px;
-            color: #111;
-            margin-bottom: 20px;
-        }
+.resumo h3 {
+    font-size: 20px;
+    color: #111;
+    margin-bottom: 20px;
+}
 
-        .resumo-linha {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-            font-size: 15px;
-            color: #444;
-        }
+.resumo-linha {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+    color: #444;
+}
 
-        .resumo-linha:last-of-type {
-            border-bottom: none;
-        }
+.resumo-linha:last-of-type {
+    border-bottom: none;
+}
 
-        .resumo-linha strong {
-            color: #111;
-        }
+.resumo-linha strong {
+    color: #111;
+}
 
-        .resumo-total {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 2px solid #eee;
-        }
+.resumo-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 2px solid #eee;
+}
 
-        .resumo-total span {
-            font-size: 15px;
-            color: #777;
-        }
+.resumo-total span {
+    font-size: 15px;
+    color: #777;
+}
 
-        .resumo-total strong {
-            font-size: 28px;
-            color: #111;
-        }
+.resumo-total strong {
+    font-size: 28px;
+    color: #111;
+}
 
-        .resumo-acoes {
-            margin-top: 24px;
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
+.resumo-acoes {
+    margin-top: 24px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
 
-        .btn-confirmar {
-            padding: 14px 32px;
-            background: #2d7a2d;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+.btn-confirmar {
+    padding: 14px 32px;
+    background: #2d7a2d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-        .btn-confirmar:hover {
-            background: #1f5c1f;
-            transform: translateY(-2px);
-        }
+.btn-confirmar:hover {
+    background: #1f5c1f;
+    transform: translateY(-2px);
+}
 
-        .btn-limpar {
-            padding: 14px 20px;
-            background: transparent;
-            color: #555;
-            border: 1.5px solid #ccc;
-            border-radius: 8px;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+.btn-limpar {
+    padding: 14px 20px;
+    background: transparent;
+    color: #555;
+    border: 1.5px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
 
-        .btn-limpar:hover {
-            border-color: #888;
-            color: #111;
-        }
+.btn-limpar:hover {
+    border-color: #888;
+    color: #111;
+}
 
-        @keyframes fadeInfo {
-            from { opacity: 0; transform: translateY(12px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+@keyframes fadeInfo {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        @media (max-width: 600px) {
-            .cal-dia { min-height: 48px; }
-            .cal-dia .valor { display: none; }
-            .cal-header h2 { font-size: 16px; }
-        }
+@media (max-width: 600px) {
+    .cal-dia {
+        min-height: 48px;
+    }
+    .cal-dia .valor {
+        display: none;
+    }
+    .cal-header h2 {
+        font-size: 16px;
+    }
+}
