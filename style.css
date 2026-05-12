@@ -9,13 +9,6 @@
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-
-/* ── BODY ─────────────────────────────────────
-   CORREÇÃO 1 — removido background-color: black do body global.
-   Cada página define seu próprio fundo via classe no <body>.
-   Isso evita conflito entre index (imagem) e reservas (branco).
-   ──────────────────────────────────────────── */
-
 body {
     scroll-behavior: smooth;
 }

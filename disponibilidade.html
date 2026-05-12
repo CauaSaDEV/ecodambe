@@ -249,27 +249,7 @@ const noIntervalo =
 }
         
 
-        function confirmarReserva() {
-    if (!checkin) return;
-
-    const fmt = d => d.toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-    });
-
-    const saida = checkout || new Date(checkin.getTime() + 24 * 60 * 60 * 1000);
-
-    alert(
-`Reserva solicitada!
-
-Acomodação: ${cabana}
-Check-in: ${fmt(checkin)}
-Check-out: ${fmt(saida)}
-
-Entraremos em contato para confirmar.`
-    );
-}
+        
 
         // ── NAVEGAÇÃO DE MESES ────────────────────
 
