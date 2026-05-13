@@ -25,7 +25,8 @@
             <h1 class="disp-titulo">Disponibilidade</h1>
             <p class="disp-subtitulo">
                 Acomodação: <strong id="nomeCabana">Cabana Luxo</strong> —
-                Selecione a data de check-in desejada, e a data de check-out.
+                Selecione o check-in e o check-out. Para reservar um único dia,
+                clique duas vezes na mesma data.
             </p>
 
             <div class="calendario">
@@ -229,14 +230,38 @@
 
             function selecionarData(data) {
                 if (!checkin || (checkin && checkout)) {
+                    // primeiro clique — define check-in
                     checkin = data;
                     checkout = null;
                 }
-                // segundo clique
-                else if (data > checkin) {
-                    checkout = data;
+                // segundo clique no mesmo dia — confirma 1 diária
+                else if (toKey(data) === toKey(checkin)) {
+                    checkout = new Date(checkin);
+                    checkout.setDate(checkout.getDate() + 1);
                 }
-                // se clicar antes do check-in, reinicia
+                // segundo clique em data posterior — define check-out
+                else if (data > checkin) {
+                    const cursor = new Date(checkin);
+                    cursor.setDate(cursor.getDate() + 1);
+                    let conflito = false;
+                    while (cursor < data) {
+                        if (indisponiveis.has(toKey(cursor))) {
+                            conflito = true;
+                            break;
+                        }
+                        cursor.setDate(cursor.getDate() + 1);
+                    }
+                    if (conflito) {
+                        alert(
+                            'Há datas indisponíveis no período selecionado. Por favor, escolha outro intervalo.'
+                        );
+                        checkin = data;
+                        checkout = null;
+                    } else {
+                        checkout = data;
+                    }
+                }
+                // clique em data anterior — reinicia
                 else {
                     checkin = data;
                     checkout = null;
@@ -256,32 +281,30 @@
                         year: 'numeric',
                     });
 
-                let diarias = 1;
-                let total = precoPorNoite;
-
-                let saida = new Date(checkin);
-
-                if (checkout) {
-                    diarias = Math.ceil(
-                        (checkout - checkin) / (1000 * 60 * 60 * 24)
-                    );
-                    total = diarias * precoPorNoite;
-                    saida = checkout;
-                } else {
-                    saida.setDate(saida.getDate() + 1);
-                }
-
                 document.getElementById('resumoCabana').textContent = cabana;
                 document.getElementById('resumoCheckin').textContent =
                     fmt(checkin);
+                document.getElementById('resumo').classList.add('visivel');
+
+                // Aguardando o checkout — exibe estado parcial
+                if (!checkout) {
+                    document.getElementById('resumoCheckout').textContent = '—';
+                    document.getElementById('resumoDiarias').textContent = '—';
+                    document.getElementById('resumoTotal').textContent = '—';
+                    return;
+                }
+
+                const diarias = Math.ceil(
+                    (checkout - checkin) / (1000 * 60 * 60 * 24)
+                );
+                const total = diarias * precoPorNoite;
+
                 document.getElementById('resumoCheckout').textContent =
-                    fmt(saida);
+                    fmt(checkout);
                 document.getElementById('resumoDiarias').textContent =
-                    `${diarias} dias(s)`;
+                    `${diarias} diária(s)`;
                 document.getElementById('resumoTotal').textContent =
                     `R$ ${total.toLocaleString('pt-BR')}`;
-
-                document.getElementById('resumo').classList.add('visivel');
             }
 
             // ── NAVEGAÇÃO DE MESES ────────────────────
@@ -322,6 +345,39 @@
                 checkout = null;
                 renderizarCalendario();
                 document.getElementById('resumo').classList.remove('visivel');
+            }
+
+            function confirmarReserva() {
+                if (!checkin || !checkout) {
+                    alert(
+                        'Selecione as datas de check-in e check-out antes de confirmar.'
+                    );
+                    return;
+                }
+
+                const fmt = (d) =>
+                    d.toLocaleDateString('pt-BR', {
+                        day: '2-digit',
+                        month: 'long',
+                        year: 'numeric',
+                    });
+
+                const diarias = Math.ceil(
+                    (checkout - checkin) / (1000 * 60 * 60 * 24)
+                );
+                const total = diarias * precoPorNoite;
+
+                const mensagem =
+                    `Reserva confirmada!\n\n` +
+                    `Acomodação: ${cabana}\n` +
+                    `Check-in: ${fmt(checkin)}\n` +
+                    `Check-out: ${fmt(checkout)}\n` +
+                    `Diárias: ${diarias}\n` +
+                    `Total: R$ ${total.toLocaleString('pt-BR')}\n\n` +
+                    `Em breve entraremos em contato para finalizar o pagamento.`;
+
+                alert(mensagem);
+                limparSelecao();
             }
         </script>
     </body>

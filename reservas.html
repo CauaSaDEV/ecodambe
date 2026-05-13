@@ -7,8 +7,10 @@
         <link rel="stylesheet" href="style.css" />
         <style>
             .card-detalhes {
-                display: none;
+                visibility: hidden;
                 opacity: 0;
+                height: 0;
+                overflow: hidden;
                 transform: translateY(24px);
                 transition:
                     opacity 0.45s ease,
@@ -16,7 +18,7 @@
 
                 max-width: 800px;
                 margin: 0 auto 80px;
-                padding: 36px 40px;
+                padding: 0 40px;
 
                 background-color: white;
                 border-radius: 15px;
@@ -25,8 +27,38 @@
             }
 
             .card-detalhes.visivel {
+                visibility: visible;
                 opacity: 1;
+                height: auto;
+                overflow: visible;
+                padding: 36px 40px;
                 transform: translateY(0);
+            }
+
+            /* ── BOTÃO FLUTUANTE ── */
+            .btn-flutuante {
+                position: fixed;
+                bottom: 32px;
+                right: 32px;
+                z-index: 999;
+
+                padding: 14px 24px;
+                background-color: #2d7a2d;
+                color: white;
+                border: none;
+                border-radius: 50px;
+                font-size: 15px;
+                font-family: inherit;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 6px 20px rgba(45, 122, 45, 0.4);
+                transition: 0.3s;
+            }
+
+            .btn-flutuante:hover {
+                background-color: #1f5c1f;
+                transform: translateY(-3px);
+                box-shadow: 0 10px 28px rgba(45, 122, 45, 0.5);
             }
 
             .card-detalhes h2 {
@@ -206,10 +238,6 @@
             </div>
         </div>
 
-        <footer>
-            <p>© 2026 Eco Dambe - Todos os direitos reservados.</p>
-        </footer>
-
         <script>
             const imagens = document.querySelectorAll('.imagem');
             const btnNext = document.querySelector('.next');
@@ -285,10 +313,7 @@
                         .map((i) => `<li>${i}</li>`)
                         .join('');
 
-                card.style.display = 'block';
-                card.offsetHeight; // força reflow para a transição disparar
                 card.classList.add('visivel');
-
                 card.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 clearInterval(autoplay);
             }
@@ -300,11 +325,6 @@
                 if (!card.classList.contains('visivel')) return;
 
                 card.classList.remove('visivel');
-
-                card.addEventListener('transitionend', function handler() {
-                    card.style.display = 'none';
-                    card.removeEventListener('transitionend', handler);
-                });
 
                 document
                     .querySelector('.cabanas')
